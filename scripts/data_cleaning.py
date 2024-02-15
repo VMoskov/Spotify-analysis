@@ -20,6 +20,16 @@ def check_missing_values(data):
     return missing_values
 
 
+def miliseconds_to_seconds(data):
+    data['duration_s'] = data['duration_ms'] / 1000
+    return data
+
+
+def seconds_to_mmss(data):
+    data['duration_mm:ss'] = data['duration_s'].apply(lambda x: '{:01d}:{:02d}'.format(int(x // 60), int(x % 60)))
+    return data
+
+
 if __name__ == '__main__':
     data = get_data('../data/spotify_data.csv')
     if check_missing_values(data) > 0:
