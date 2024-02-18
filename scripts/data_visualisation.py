@@ -29,3 +29,16 @@ def top_tracks_per_genre(genre_name, number_of_tracks):
     plt.xlabel('Popularity')
     plt.ylabel('Track Name')
     plt.show()
+
+
+def top_tracks_per_artist(artist_name, number_of_tracks):
+    dataset = get_ipython().user_ns['dataset']
+
+    tracks = dataset[dataset['artist_name'] == artist_name].sort_values('popularity', ascending=False).head(number_of_tracks)
+    sns.set(style='whitegrid')
+    plt.figure(figsize=(10, 6))
+    sns.barplot(x='popularity', y='track_name', data=tracks, palette='viridis')
+    plt.title(f'Top {number_of_tracks} {artist_name} tracks')
+    plt.xlabel('Popularity')
+    plt.ylabel('Track Name')
+    plt.show()
