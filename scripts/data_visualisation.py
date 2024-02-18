@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from IPython import get_ipython
 import seaborn as sns
 
 
@@ -14,4 +15,17 @@ def plot_data(dataset, x, y, hue):
     plt.ylabel(y[0].upper() + y[1:])
     plt.ylim(0, 1)
     plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.show()
+
+
+def top_tracks_per_genre(genre_name, number_of_tracks):
+    dataset = get_ipython().user_ns['dataset']
+
+    tracks = dataset[dataset['genre'] == genre_name].sort_values('popularity', ascending=False).head(number_of_tracks)
+    sns.set(style='whitegrid')
+    plt.figure(figsize=(10, 6))
+    sns.barplot(x='popularity', y='track_name', data=tracks, palette='viridis')
+    plt.title(f'Top {number_of_tracks} {genre_name} tracks')
+    plt.xlabel('Popularity')
+    plt.ylabel('Track Name')
     plt.show()
